@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billing Table</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+	
+    table, th, td {
+        border: 1px solid black;
+    }
+	
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+	
+	th{
+	background-color:black;
+	color:white;
+	}
+	
+	tr:nth-child(even) {background-color: #f2f2f2;}
+	
+    input {
+        width: 100%;
+        text-align: center;
+    }
+	
+	.totaltd{
+	background-color:black;
+	color:yellow;
+	text-align: center;}
+	
+	.total {
+	text-align: center;
+
+</style>
+</head>
+<body>
+
+<table id="billingTable">
+    <tr>
+        <th style="width:50%">Product</th>
+        <th style="width:15%">Price</th>
+        <th style="width:15%">Amount</th>
+        <th style="width:20%">Total</th>
+    </tr>
+    <tr>
+        <td>MILGA ADVANCE 30 TAB</td>
+        <td>79.5</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>Conventin 400 - 30Cap</td>
+        <td>88.8</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>Gliptus plus 50-1000 mg 30 tabs</td>
+        <td>109.5</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>Conventin 300 - 30Cap</td>
+        <td>66.0</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>GENUPHIL ORIGINAL 50 TAB</td>
+        <td>156.4</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>THIOTACID ORIGINAL 600 MG 30 TAB</td>
+        <td>113.6</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>LIMITLESS ALLZYME MAX 20 EC TAB</td>
+        <td>78.5</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>LIMITLESS WOMAN MAX 30 TABLETS</td>
+        <td>147.2</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>Anselacox 90 MG 30 Tab</td>
+        <td>176.6</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td>LIMITLESS MAN MAX 30 TABLETS</td>
+        <td>147.2</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+	    <tr>
+        <td>DIAFLOZIMET 10/1000 MG 30 TAB</td>
+        <td>192.8</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+	    <tr>
+        <td>Flix</td>
+        <td>37.8</td>
+        <td><input type="number" class="amount" value="0"></td>
+        <td class="total"></td>
+    </tr>
+    <tr>
+        <td colspan="3"><strong>Total Bill</td></strong>
+        <td class="totaltd" id="totalBill"></td>
+    </tr>
+</table>
+<button onclick="resetAmounts()">Reset</button>
+<script>
+    document.addEventListener("DOMContentLoaded", function calculations() {
+        const amountInputs = document.querySelectorAll(".amount");
+        const totalFields = document.querySelectorAll(".total");
+        const totalBillField = document.getElementById("totalBill");
+
+        amountInputs.forEach(function(input, index) {
+            input.addEventListener("input", function() {
+                let amount = parseFloat(input.value);
+                amount = isNaN(amount) ? 0 : amount;
+                input.value = amount;
+                input.style.backgroundColor = amount === 0 ? "yellow" : "";
+
+                let price = parseFloat(input.parentElement.previousElementSibling.textContent);
+                let total = amount * price;
+                if (isNaN(total)) {
+                    total = 0;
+                }
+                totalFields[index].textContent = total.toFixed(2);
+				
+
+                let sum = 0;
+                totalFields.forEach(function(field) {
+                    sum += parseFloat(field.textContent);
+                });
+
+                totalBillField.textContent = sum;
+            });
+        });
+
+        amountInputs.forEach(function(input, index) {
+            let amount = parseFloat(input.value);
+            amount = isNaN(amount) ? 0 : amount;
+            input.style.backgroundColor = amount === 0 ? "yellow" : "";
+
+            let price = parseFloat(input.parentElement.previousElementSibling.textContent);
+            let total = amount * price;
+            if (isNaN(total)) {
+                total = 0;
+            }
+            totalFields[index].textContent = total;
+
+            let sum = 0;
+            totalFields.forEach(function(field) {
+                sum += parseFloat(field.textContent);
+            });
+
+            totalBillField.textContent = sum;
+        });
+    });
+	
+//	function resetAmounts() {
+	//	const amountInputs = document.querySelectorAll(".amount");
+ 
+		//amountInputs.forEach(input => {
+	//	input.value = "0";
+	//	input.style.backgroundColor = "";
+       
+			//	calculations();
+		//	}};
+</script>
+
+</body>
+</html>
